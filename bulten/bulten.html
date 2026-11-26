@@ -6,8 +6,10 @@
 html,body{margin:0;background:#000}canvas{display:block}
 </style></head><body>
 <canvas id="c" width="1080" height="1920"></canvas>
+<script src="../motor/vendor/lottie_canvas.min.js"></script><script src="../motor/vendor/gsap.min.js"></script>
 <script src="../motor/memo.js"></script><script src="../motor/chars.js"></script><script src="../motor/chars2.js"></script>
 <script>const ctx = document.getElementById('c').getContext('2d');</script>
+<script src="../motor/meteo-ikonlar.js"></script><script src="../motor/lottie-ikon.js"></script>
 <script src="bulten.js"></script>
-<script>(async () => { await Promise.all(['700 50px Poppins', '500 30px Poppins'].map(f => document.fonts.load(f))); window.READY = true; })();</script>
+<script>(async () => { await Promise.all(['700 50px Poppins', '500 30px Poppins'].map(f => document.fonts.load(f))); await (window.lottieHazir || Promise.resolve()); window.READY = true; })();</script>
 </body></html>

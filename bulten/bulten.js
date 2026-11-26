@@ -62,6 +62,10 @@ function sun(x, y, r, rot) {
   ctx.restore(); memoCircle(ctx, x, y, r, '#FFD23F', K, r * 0.1);
 }
 function wIcon(kind, x, y, s, t) {
+  if (window.lottieIcon && window.LOTTIE_HAVA && LOTTIE_HAVA.has(kind)) {   // Meteocons Lottie (motor/lottie-ikon.js); acik bulutlar beyaz kartta kaybolmasin diye mavi zemin
+    ctx.beginPath(); ctx.arc(x, y, 92 * s, 0, 7); ctx.fillStyle = '#D6E6FF'; ctx.fill();
+    if (lottieIcon(kind, x, y - 4 * s, 235 * s, t)) return;
+  }
   if (kind === 'gunes') sun(x, y, 42 * s, t * 0.6);
   else if (kind === 'kar') { cloud(x, y - 10 * s, 0.8 * s); for (let k = 0; k < 3; k++) snowflake(x - 40 * s + k * 40 * s, y + 50 * s + ((t * 30 + k * 9) % 20) * s, 12 * s, t + k, '#BFE3FF'); }
   else { sun(x + 30 * s, y - 30 * s, 26 * s, t * 0.6); cloud(x - 6 * s, y + 10 * s, 0.8 * s); }
@@ -77,6 +81,7 @@ function lion(x, y, r) {
   ctx.restore();
 }
 function icon(kind, x, y, s, lt) {
+  if (window.LOTTIE_HAVA && LOTTIE_HAVA.has(kind) && lottieIcon(kind, x, y, 400 * s, lt)) return;   // hava ikonlari Lottie
   ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
   if (kind === 'ogretmen') {
     rr(x - 170 * s, y - 120 * s, 340 * s, 220 * s, 14 * s, '#14532D', K, 10 * s);
@@ -158,10 +163,10 @@ function screenScene(e, t, lt) {
   const S = VS, cx = S.x + S.w / 2;
   if (e.tip === 'kanca') {
     const g = ctx.createLinearGradient(0, S.y, 0, S.y + S.h); g.addColorStop(0, '#0B1A4A'); g.addColorStop(1, '#2A4C9A'); ctx.fillStyle = g; ctx.fillRect(S.x, S.y, S.w, S.h);
-    const p = eob(seg(t, 0, 0.35)), sh = Math.sin(t * 50) * 6 * (1 - seg(t, 0.3, 0.9));
-    if (!e.ikon || e.ikon === 'kar') { snowfall(S, t, 70); snowflake(S.x + 200, S.y + 360, 120 * p, t * 0.8, '#BFE3FF'); }
+    const p = eob(seg(t, 0, 0.35)), sh = Math.sin(t * 50) * 6 * (1 - seg(t, 0.3, 0.9)), pz = window.EZ ? EZ.pop(seg(t, 0, 0.6)) : p;
+    if (!e.ikon || e.ikon === 'kar') { snowfall(S, t, 70); if (!(window.lottieIcon && lottieIcon('kar', S.x + 200, S.y + 370, 420 * p, t))) snowflake(S.x + 200, S.y + 360, 120 * p, t * 0.8, '#BFE3FF'); }
     else { ctx.save(); ctx.translate(S.x + 200, S.y + 370); ctx.scale(0.85 * p, 0.85 * p); icon(e.ikon, 0, 0, 1, t); ctx.restore(); }   // kar disi kancada kar yagmaz
-    ctx.save(); ctx.translate(S.x + 610 + sh, S.y + 380); ctx.scale(p, p); txtOut(e.yazi, 0, 0, 330, '#fff', K, 22); ctx.restore();
+    ctx.save(); ctx.translate(S.x + 610 + sh, S.y + 380); ctx.scale(pz, pz); txtOut(e.yazi, 0, 0, 330, '#fff', K, 22); ctx.restore();
     if (e.ust) { ctx.font = '700 46px Poppins'; const w = ctx.measureText(e.ust).width + 60; rr(cx - w / 2, S.y + 40, w, 76, 38, YEL, K, 6); txt(e.ust, cx, S.y + 80, 46, K); }
     if (Math.floor(t * 4) % 2 === 0) { rr(S.x + 44, S.y + S.h - 92, 330, 68, 14, RED, K, 6); txt('SON DAKİKA', S.x + 209, S.y + S.h - 56, 44, '#fff'); }
   } else if (e.tip === 'acilis') {
@@ -195,10 +200,10 @@ function screenScene(e, t, lt) {
     ctx.globalAlpha = 1;
   } else if (e.tip === 'hava') {
     const g = ctx.createLinearGradient(0, S.y, 0, S.y + S.h); g.addColorStop(0, '#1E3A8A'); g.addColorStop(1, '#60A5FA'); ctx.fillStyle = g; ctx.fillRect(S.x, S.y, S.w, S.h);
-    snowfall(S, t, 35, 'rgba(255,255,255,0.45)', 6);
+    if (e.gunler.some(gn => gn[3] === 'kar' || gn[3] === 'karla-karisik')) snowfall(S, t, 35, 'rgba(255,255,255,0.45)', 6);   // gunesli tahminde kar yagmaz
     txt(e.sehir + ' · HAVA DURUMU', cx, S.y + 70, 52, '#fff');
     e.gunler.forEach((gn, k) => {
-      const p = eob(seg(lt, 0.15 + k * 0.25, 0.55 + k * 0.25)), x = cx + (k - (e.gunler.length - 1) / 2) * 295, y = S.y + 380;
+      const p = (window.EZ ? EZ.geri : eob)(seg(lt, 0.15 + k * 0.25, 0.55 + k * 0.25)), x = cx + (k - (e.gunler.length - 1) / 2) * 295, y = S.y + 380;
       ctx.save(); ctx.translate(x, y); ctx.scale(p, p);
       rr(-135, -230, 270, 470, 28, '#fff', K, 8); txt(gn[0], 0, -180, fit(gn[0], 230, 40), '#334155');
       wIcon(gn[3], 0, -60, 1.1, t);
