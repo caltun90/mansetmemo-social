@@ -63,7 +63,7 @@ Saatler Europe/Istanbul. X'e Buffer üzerinden en fazla 140 sn video gidiyor, bu
 5. ~5 sn sonra `select haber.sonuclari_isle();` ve `select id, konu, durum, buffer_post_id, hata from haber.paylasimlar where sayfa='manset' order by id desc limit 3;`
 
 ## Paylaşım metni
-Başta tek emoji (🎙️), 1-2 kısa cümle: bültenin en dikkat çekici 2-3 başlığı ve bağlanılan muhabirler. Sonda "(Yapay zekâ ile hazırlanmıştır)". Hashtag, link ve uzun tire yok, en fazla 260 karakter. Ana haber 1. bölüm: "... 2. bölüm 19.05'te." 2. bölüm: "Ana haber 2. bölüm: ...".
+Başta tek emoji (🎙️), 1-2 kısa cümle: bültenin en dikkat çekici 2-3 başlığı ve bağlanılan muhabirler. Metnin sonuna "(Yapay zekâ ile hazırlanmıştır)" ya da benzeri bir yapay zekâ ibaresi yazılmaz (Cem 26.11.2026 istedi). Hashtag, link ve uzun tire yok, en fazla 260 karakter. Ana haber 1. bölüm: "... 2. bölüm 19.05'te." 2. bölüm: "Ana haber 2. bölüm: ...".
 
 ## Öğrenilenler
 - 24.11.2026: TTS'e uzun İngilizce stil talimatı verince model talimatı da sesli okudu. Talimat kısa tutulur ve her satır "her dilde" yazıya dökülerek kontrol edilir (tts.py bunu yapar).

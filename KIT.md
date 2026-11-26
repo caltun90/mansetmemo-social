@@ -41,6 +41,7 @@ Bir medya bir kez kullanılır (`buffer_planla` kullanımı sayar). Metindeki ka
 - Türkçe, başta tek emoji (📌 🚨 👀 💰 🌧️ ❄️ 📚 ⚽ 🌍 💻 gibi; aynı emojiyi üst üste kullanma), 1-2 kısa cümle.
 - KAYNAK PARANTEZİ YOK (Cem 25.11.2026'da istedi): metnin sonuna ya da içine (AA), (MGM), (İstanbul Valiliği) gibi kaynak yazılmaz. Kaynak, alıntılanan foto/videonun altında X'in gösterdiği kanal adından, Memo kartında da kartın "Kaynak" satırından görünür. Haberi kaynağıyla doğrulama ve `kaynak_url`/`kaynak_hesap` alanlarını doldurma kuralları aynen sürer; yalnızca tweet metnine yazılmaz. Cümle içinde aktarım için kurum adı geçebilir ("Meteoroloji uyardı", "AFAD'a göre"), ama sona parantezli kaynak eklenmez.
 - En fazla 240 karakter. Kaynağın cümlesini kopyalama, kendi cümlenle yaz. Hashtag yok, uzun tire (—) yok. Metne kendin link yazma; medya linkini fonksiyon ekler.
+- Hiçbir paylaşım metninde (haber ve bülten) "(Yapay zekâ ile hazırlanmıştır)" ya da benzeri yapay zekâ ibaresi yok (Cem 26.11.2026'da istedi). Bülten videosunun içindeki küçük etiket ayrı konudur, metne yazılmaz.
 - Hafif bir haberde kısa ve sevimli bir kapanış olabilir ("Montları hazırlayın!"). Siyaset ve ciddi haberlerde yorum yok.
 
 ## Sayı ve zamanlama (Cem 25.11.2026: Buffer'ın 24 saatte 100 post sınırına göre günlük plan)
