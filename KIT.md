@@ -96,6 +96,7 @@ Hızlı aday aramaları (WebSearch, standard)
 
 Alt ajan ve medya
 - Alt ajanda açılanlar: sabah.com.tr, CNN Türk haber sayfaları, memurlar.net, ensondakika, sondakika.com ve Habertürk haber sayfaları (kaynak ajansı ve dakikayı yazıyor), karar.com, star, aksam, canligaste, AA haber sayfaları (bazen SERVER_ERROR). Açılmayan ya da eski önbellek gösterenler: son dakika liste sayfaları (Habertürk, NTV, CNN Türk, Hürriyet, haber7, TRT, T24, sondakika.com/politika ve /gozalti), trthaber haber sayfaları (izin beklemesi), medyascope, t24, dunya.com, yenicag, oksijen, nefes, haber3, trtspor, fenerbahce.org, Variety, Deadline.
+- Son haber listesi: memurlar.net/sonhaberler/ (saatli) ve ensondakika.com.tr ana sayfası alt ajanda açılır (ensondakika'da saat ve ajans yok, tek başına doğrulama sayılmaz). Standard arama bugünün sayfasını vermezse başlık kalıbıyla ara ("Borsa güne yükselişle başladı -26 Kasım 2026", "Döviz ve altın güne nasıl başladı? (26 Kasım 2026)", "<gün> Kasım 2026'dan Önemli Gündem Başlıkları"); arama yalnız başlık döndürür, rakam için sayfa açmak gerekir.
 - Gömülü X postu bulunan yerler: AA haber sayfaları (şirketlerin resmi postları), Cumhuriyet siyaset haberleri (liderlerin postları), Habertürk spor (HTSpor videoları). Maç sonucu sayfaları (Habertürk, Evrensel, Fanatik, Ajansspor, Sözcü), CNN Türk dünya/finans (AFP) ve sondakika/kantan sayfalarında gömülü post yok; bunlarda medya aramaya sayfa harcama.
 
 Kapsam
