@@ -1,6 +1,6 @@
 #!/bin/bash
 # Depoyu kucuk tutar: yalnizca son 2 gunun kartlari ve bulten videolari kalir, git gecmisi tek commit'e indirilir.
-# Gunde bir kez (Europe/Istanbul 04:xx calismasinda) calistirilir. Buffer'da bekleyen planli postlar en fazla 1 saat icinde
+# Gunde bir kez (Europe/Istanbul 03:xx calismasinda) calistirilir. Buffer'da bekleyen planli postlar en fazla 2 saat icinde
 # gittigi icin 2 gunluk kartlar yeterlidir.
 set -e
 cd "$(dirname "$0")/.."
