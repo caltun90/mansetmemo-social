@@ -85,6 +85,7 @@ Git ve Buffer
 
 Tarih ve doğrulama tuzakları
 - Aramalar eski yılların haberlerini döndürür (yıllık olaylar, FIFA yasağı, kar tatili, "altın en düşükte" vb.). Yılı haber ID'siyle sına; Kasım 2026'da X status ~2125..., AA ~4138..., Hürriyet ~4338..., Habertürk ~3930..., NTV ~1752..., Cumhuriyet ~2559..., BirGün ~748..., sondakika.com ~20463... (daha küçükse eski; ANKA ~275xxx, BirGün ~389xxx, Türkiye Gazetesi 983804 eski çıktı). ID'siz linkte (NTV virgüllü kısa kod) tarihi sayfadan sına.
+- foreks haber ID'sinin ilk 8 hanesi hex Unix zamanıdır (6b080019 = 26.11.2026 12:47 TSİ; `date -u -d @$((16#6b080019))`): sayfa açmadan yayın saatini ve gün tazeliğini verir; AA sayfalarında saat yoktur, saat için foreks ID'sine bak.
 - Depodaki AA medyalı postlar ve ertesi gün başka sitelerde yeniden çıkan açıklamalar eski olayı yeniden verebilir; ilk yayın ya da resmi tarihi sına, güncel değilse atla.
 - Yargı "son dakika"ları eski kararın bugün çıkan gerekçesi olabilir (İmamoğlu diploma); asıl tarihi Medyascope/Cumhuriyet'ten sına ve gerekçeyse öyle yaz. "Adliyeye sevk" ve "tutuklama talebi" ayrı haber değildir; karar iki kaynakta çıkınca paylaşılır (tek sitenin "tutuklandı" başlığı yetmez).
 - Kaynaklarda rakam çelişirse (çekirdek PCE, akaryakıt indirimi, gol dakikası, AB bütçe toplamı) o rakamı yazma ya da çoğunluğu ve ayrıntılı (il il) kaynağı esas al. Wall Street kapanışında 00:00 TSİ sonrası yayımlanan AA metnini esas al, seans içi rakamı kapanış sanma. Güncel fiyat olmadan altın haberi verme. "Yarın okullar tatil mi" sayfaları SEO; valilik kararı yoksa verme.
