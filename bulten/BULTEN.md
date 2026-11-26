@@ -43,6 +43,9 @@ Saatler Europe/Istanbul. X'e Buffer üzerinden en fazla 140 sn video gidiyor, bu
       `renk1`/`renk2` takımın gerçek renkleri olmalı (Fenerbahçe ["#FFED00","#0B2A6B"], Galatasaray ["#FDB912","#A90432"]); verilmezse TAKIMLAR listesinden alınır.
     - `{"tip":"kapanis","saat":"19:00","yazi":"ANA HABER","alt":"GÖRÜŞMEK ÜZERE!"}`
 
+## Hareket (Cem, 27.11.2026)
+- `bulten.js` içindeki giriş hareketleri `window.EZ` yumuşatmalarını (GSAP: pop = elastic, geri = back, kay = expo, sek = bounce) kullanır; yeni bir ekran öğesi eklerken bunlardan birini seç. Süre ve sıra için `docs/motion-design/SKILL.md` (LottieFiles motion-design, MIT) bölümüne bak; "Creator MCP" önerileri geçersiz.
+
 ## Metin kuralları
 - İlk satır kancadır: 2 saniyenin altında, şaşırtıcı ve doğru bir cümle ("İstanbul'a sıfır derece geliyor!"). Tık tuzağı ya da abartı yok.
 - İkinci satır selam: "Merhaba, ben Manşet Memo. Gün ortası bülteniyle karşınızdayım!" (akşam: "İyi akşamlar, ben Manşet Memo. Ana haber bülteni başlıyor!").
