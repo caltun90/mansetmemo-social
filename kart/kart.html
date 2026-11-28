@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Poppins;font-weight:700;src:url(../fonts/Poppins-Bold.ttf)}
+@font-face{font-family:Poppins;font-weight:500;src:url(../fonts/Poppins-Medium.ttf)}
+html,body{margin:0;background:#000}canvas{display:block}
+</style></head><body>
+<canvas id="c" width="1600" height="900"></canvas>
+<script src="../motor/memo.js"></script>
+<script src="../motor/chars.js"></script>
+<script>
+// Manset Memo haber karti, 1200x675 tasarim, 1600x900 cikti.
+// window.ciz({ manset, etiket, kaynak, tarih, ifade })  ifade: mutlu | sok | ciddi | kahkaha
+const K = INK, YEL = '#FFD23F', RED = '#FF3B5C', TEAL = '#14B8A6', PUR = '#7C5CFF', GRN = '#22C55E';
+const RENK = { 'SON DAKİKA': RED, 'GÜNDEM': PUR, 'EKONOMİ': '#F59E0B', 'SPOR': GRN, 'DÜNYA': '#3B82F6', 'HAVA DURUMU': TEAL, 'TEKNOLOJİ': '#06B6D4', 'SAĞLIK': '#EC4899', 'EĞİTİM': '#8B5CF6', 'KÜLTÜR SANAT': '#F97316' };
+function txt(ctx, s, x, y, size, color, align = 'left', weight = 700, base = 'middle') { ctx.font = `${weight} ${size}px Poppins`; ctx.fillStyle = color; ctx.textAlign = align; ctx.textBaseline = base; ctx.fillText(s, x, y); }
+function rr(ctx, x, y, w, h, r, fill, stroke, sw) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); if (fill) { ctx.fillStyle = fill; ctx.fill(); } if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = sw; ctx.stroke(); } }
+function wrap(ctx, s, maxW, size) {
+  ctx.font = `700 ${size}px Poppins`; const words = s.split(/\s+/); const lines = []; let cur = '';
+  for (const w of words) { const t = cur ? cur + ' ' + w : w; if (ctx.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t; }
+  if (cur) lines.push(cur); return lines;
+}
+window.ciz = async (d) => {
+  await Promise.all(['700 60px Poppins', '500 30px Poppins'].map(f => document.fonts.load(f)));
+  const ctx = document.getElementById('c').getContext('2d');
+  ctx.setTransform(4 / 3, 0, 0, 4 / 3, 0, 0);
+  const W = 1200, H = 675;
+  // zemin
+  const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#161A36'); g.addColorStop(1, '#2B3080'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.save(); ctx.globalAlpha = 0.08;
+  for (let i = 0; i < 8; i++) { const x = 60 + i * 160; ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.moveTo(x - 12, 0); ctx.lineTo(x + 12, 0); ctx.lineTo(x + 120, H); ctx.lineTo(x - 120, H); ctx.closePath(); ctx.fill(); }
+  ctx.restore();
+  ctx.fillStyle = 'rgba(255,255,255,0.05)'; for (let x = 20; x < W; x += 40) for (let y = 20; y < H; y += 40) { ctx.beginPath(); ctx.arc(x, y, 2, 0, 7); ctx.fill(); }
+  const fg = ctx.createRadialGradient(990, 640, 20, 990, 640, 320); fg.addColorStop(0, 'rgba(124,92,255,0.55)'); fg.addColorStop(1, 'rgba(124,92,255,0)'); ctx.fillStyle = fg; ctx.fillRect(700, 330, 500, 345);
+  // ust bant
+  const etiket = (d.etiket || 'GÜNDEM').toLocaleUpperCase('tr-TR'); const ec = RENK[etiket] || PUR;
+  ctx.font = '700 30px Poppins'; const ew = ctx.measureText(etiket).width + 48;
+  rr(ctx, 56, 48, ew, 58, 29, ec, K, 4); txt(ctx, etiket, 56 + ew / 2, 79, 30, '#fff', 'center');
+  rr(ctx, 56 + ew + 14, 48, 250, 58, 14, YEL, K, 4); txt(ctx, 'MANŞET MEMO', 56 + ew + 14 + 125, 79, 30, K, 'center');
+  if (d.tarih) txt(ctx, d.tarih, 56 + ew + 14 + 250 + 18, 79, 26, '#C7CBEA', 'left', 500);
+  // manset
+  const maxW = 700; let fs = 76, lines = wrap(ctx, d.manset, maxW, fs);
+  while ((lines.length > 4 || lines.some(l => { ctx.font = `700 ${fs}px Poppins`; return ctx.measureText(l).width > maxW; })) && fs > 40) { fs -= 4; lines = wrap(ctx, d.manset, maxW, fs); }
+  const lh = fs * 1.18, top = 175 + Math.max(0, (4 - lines.length)) * lh * 0.35;
+  ctx.fillStyle = YEL; ctx.fillRect(56, top - 4, 10, lines.length * lh - 10);
+  lines.forEach((l, i) => txt(ctx, l, 90, top + i * lh + lh / 2 - 6, fs, '#fff', 'left', 700));
+  // kaynak
+  if (d.kaynak) { const ky = Math.min(560, top + lines.length * lh + 34); txt(ctx, 'Kaynak: ' + d.kaynak, 90, ky, 26, '#C7CBEA', 'left', 500); }
+  // Memo (belden yukarisi)
+  const ifade = d.ifade || 'mutlu';
+  const pose = ifade === 'sok' ? { la: [-40, -150], ra: [105, 150], ll: [-12, -6], rl: [12, 6], mic: 'la' }
+             : { la: [-40, -150], ra: [-80, -110], ll: [-12, -6], rl: [12, 6], mic: 'la' };
+  const look = ifade === 'sok' ? [0, -0.2] : [-0.5, 0];
+  drawChar(ctx, 985, 960, 1.12, { pose, face: { expr: ifade, mouth: ifade === 'ciddi' ? 0 : (ifade === 'sok' ? 1 : 0.55), look }, micAng: -10, pointR: ifade !== 'sok' }, CH_MEMO);
+  // alt serit
+  rr(ctx, 0, H - 58, W, 58, 0, YEL);
+  txt(ctx, '@MansetMemo', 56, H - 29, 28, K, 'left', 700);
+  txt(ctx, 'Ana bülten her akşam 19.00\'da', W - 40, H - 29, 26, K, 'right', 500);
+  return true;
+};
+window.READY = true;
+</script>
+</body></html>
